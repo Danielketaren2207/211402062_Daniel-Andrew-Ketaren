@@ -1,0 +1,37 @@
+MariaDB [(none)]> create view 211402062
+    -> VALUES
+    -> ; 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '211402062
+VALUES' at line 1
+MariaDB [(none)]> CREATE VIEW 211402062
+    -> INSERT INTO task_id
+    -> VALUES 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '211402062
+INSERT INTO task_id
+VALUES' at line 1
+MariaDB [(none)]> CREATE VIEW 211402062
+    -> INSERT INTO task_plans
+    -> (id, task_name, task_status, indicators_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '211402062
+MariaDB [(none)]> use task_manager;
+Database changed
+MariaDB [task_manager]> CREATE VIEW nim_211402062 AS
+    -> SELECT a.id as 'Task Id', a.task_name as 'Nama Task', a.task_status as 'Status', a.category_id as 'Kategori Indikator', b.category_name as 'Kategori', c.indicator_name as 'Indikator', a.user_create as 'Creator Id', d.name as 'Creator Name', a.task_priority as 'Prioritas'
+    -> FROM task_plans a
+    -> RIGHT JOIN task_categories b
+    -> ON a.category_id = b.id
+    -> RIGHT JOIN task_indicators c
+    -> ON a.category_id = c.id
+    -> RIGHT JOIN users d
+    -> ON a.user_create = d.id;
+Query OK, 0 rows affected (0.006 sec)
+MariaDB [task_manager]> SELECT * FROM nim_211402062;
++---------+-----------+--------+--------------------+----------+-----------+------------+--------------+-----------+
+| Task Id | Nama Task | Status | Kategori Indikator | Kategori | Indikator | Creator Id | Creator Name | Prioritas |
++---------+-----------+--------+--------------------+----------+-----------+------------+--------------+-----------+
+| NULL    | NULL      | NULL   | NULL               | NULL     | NULL      | NULL       | User B       |      NULL |
+| NULL    | NULL      | NULL   | NULL               | NULL     | NULL      | NULL       | User A       |      NULL |
++---------+-----------+--------+--------------------+----------+-----------+------------+--------------+-----------+
+2 rows in set (0.002 sec)
+
